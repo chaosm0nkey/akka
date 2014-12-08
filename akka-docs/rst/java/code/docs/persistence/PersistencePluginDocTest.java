@@ -92,16 +92,6 @@ public class PersistencePluginDocTest {
         }
 
         @Override
-        public Future<Void> doAsyncWriteConfirmations(Iterable<PersistentConfirmation> confirmations) {
-            return null;
-        }
-
-        @Override
-        public Future<Void> doAsyncDeleteMessages(Iterable<PersistentId> messageIds, boolean permanent) {
-            return null;
-        }
-
-        @Override
         public Future<Void> doAsyncDeleteMessagesTo(String persistenceId, long toSequenceNr, boolean permanent) {
             return null;
         }

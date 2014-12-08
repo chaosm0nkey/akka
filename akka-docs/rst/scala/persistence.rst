@@ -656,16 +656,6 @@ or
 
 in your Akka configuration. The LevelDB Java port is for testing purposes only.
 
-Miscellaneous
-=============
-
-State machines
---------------
-
-State machines can be persisted by mixing in the ``FSM`` trait into persistent actors.
-
-.. includecode:: code/docs/persistence/PersistenceDocSpec.scala#fsm-example
-
 Configuration
 =============
 
