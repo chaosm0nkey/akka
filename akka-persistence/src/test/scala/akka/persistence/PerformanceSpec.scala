@@ -165,6 +165,9 @@ class PerformanceSpec extends AkkaSpec(PersistenceSpec.config("leveldb", "Perfor
     "have some reasonable throughput" in {
       stressCommandsourcedPersistentActor(None)
     }
+    "have some reasonable throughput 2" in {
+      stressCommandsourcedPersistentActor(None)
+    }
   }
 
   "An event sourced persistent actor" should {

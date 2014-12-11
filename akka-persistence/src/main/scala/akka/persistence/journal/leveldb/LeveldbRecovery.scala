@@ -54,7 +54,8 @@ private[persistence] trait LeveldbRecovery extends AsyncRecovery { this: Leveldb
       }
     }
 
-    // FIXME PN how to remove this in compatible way
+    // need to have this to be able to read journal created with 2.3.x, which
+    // supported deletion of individual events
     def deletion(iter: DBIterator, key: Key): Boolean = {
       if (iter.hasNext) {
         val nextEntry = iter.peekNext()

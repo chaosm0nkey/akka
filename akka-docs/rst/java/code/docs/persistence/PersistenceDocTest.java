@@ -110,7 +110,7 @@ public class PersistenceDocTest {
         }
     };
 
-    static Object fullyDisabledRecoveyExample = new Object() {
+    static Object fullyDisabledRecoveryExample = new Object() {
         abstract class MyPersistentActor1 extends UntypedPersistentActor {
             //#recover-fully-disabled
             @Override

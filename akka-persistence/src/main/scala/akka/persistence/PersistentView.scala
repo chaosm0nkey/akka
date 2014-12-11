@@ -154,8 +154,8 @@ trait PersistentView extends Actor with Snapshotter with Stash with StashFactory
     viewSettings.autoUpdateReplayMax
 
   /**
-   * Highest received sequence number so far or `0L` if this actor hasn't received a persistent
-   * message yet.
+   * Highest received sequence number so far or `0L` if this actor hasn't replayed
+   * any persistent events yet.
    */
   def lastSequenceNr: Long = _lastSequenceNr
 
@@ -304,7 +304,7 @@ trait PersistentView extends Actor with Snapshotter with Stash with StashFactory
         onReplayComplete(await)
       case ReplayMessagesFailure(cause) ⇒
         onReplayComplete(await)
-        // FIXME PN: what happens if RecoveryFailure is handled, i.e. actor is not stopped?
+        // FIXME what happens if RecoveryFailure is handled, i.e. actor is not stopped?
         superAroundReceive(receive, RecoveryFailure(cause))
       case other ⇒
         internalStash.stash()

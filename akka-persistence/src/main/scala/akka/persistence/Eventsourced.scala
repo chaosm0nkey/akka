@@ -86,8 +86,8 @@ private[persistence] trait Eventsourced extends Snapshotter with Stash with Stas
   override def snapshotterId: String = persistenceId
 
   /**
-   * Highest received sequence number so far or `0L` if this actor hasn't received a persistent
-   * message yet.
+   * Highest received sequence number so far or `0L` if this actor hasn't replayed
+   * or stored any persistent events yet.
    */
   def lastSequenceNr: Long = _lastSequenceNr
 
@@ -494,7 +494,7 @@ private[persistence] trait Eventsourced extends Snapshotter with Stash with Stas
         journal ! ReadHighestSequenceNr(lastSequenceNr, persistenceId, self)
       case ReplayMessagesFailure(cause) ⇒
         onReplayFailure(cause) // callback for subclass implementation
-        // FIXME PN: what happens if RecoveryFailure is handled, i.e. actor is not stopped?
+        // FIXME what happens if RecoveryFailure is handled, i.e. actor is not stopped?
         superAroundReceive(_recoveryBehavior, RecoveryFailure(cause))
       case other ⇒
         internalStash.stash()
