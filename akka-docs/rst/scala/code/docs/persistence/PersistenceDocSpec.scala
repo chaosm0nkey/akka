@@ -56,19 +56,15 @@ trait PersistenceDocSpec {
       //#recovery-completed
 
       override def receiveRecover: Receive = {
-        case RecoveryCompleted => recoveryCompleted()
+        case RecoveryCompleted =>
+        // perform init after recovery, before any other messages
+        //...
         case evt               => //...
       }
 
       override def receiveCommand: Receive = {
         case msg => //...
       }
-
-      def recoveryCompleted(): Unit = {
-        // perform init after recovery, before any other messages
-        // ...
-      }
-
       //#recovery-completed
     }
   }
@@ -280,7 +276,7 @@ trait PersistenceDocSpec {
       override def persistenceId: String = "some-persistence-id"
       override def viewId: String = "some-persistence-id-view"
 
-      def receive: Actor.Receive = {
+      def receive: Receive = {
         case payload if isPersistent =>
         // handle message from journal...
         case payload                 =>

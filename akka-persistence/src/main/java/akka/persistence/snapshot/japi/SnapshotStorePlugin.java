@@ -6,7 +6,7 @@ package akka.persistence.snapshot.japi;
 
 import scala.concurrent.Future;
 
-import akka.japi.Option;
+import akka.japi.Option; 
 import akka.persistence.*;
 
 interface SnapshotStorePlugin {

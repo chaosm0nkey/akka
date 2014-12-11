@@ -85,34 +85,28 @@ public class PersistenceDocTest {
         }
         
         class MyPersistentActor5 extends UntypedPersistentActor {
-            @Override
-            public String persistenceId() { return "persistence-id"; }
-
-            //#recovery-completed
-          
-            @Override
-            public void onReceiveRecover(Object message) {
-      	      if (message instanceof RecoveryCompleted) {
-      	          recoveryCompleted();
-      	      }
+          @Override
+          public String persistenceId() {
+            return "persistence-id";
+          }
+    
+          //#recovery-completed
+          @Override
+          public void onReceiveRecover(Object message) {
+            if (message instanceof RecoveryCompleted) {
+              // perform init after recovery, before any other messages
+            }
+          }
+    
+          @Override
+          public void onReceiveCommand(Object message) throws Exception {
+            if (message instanceof String) {
               // ...
+            } else {
+              unhandled(message);
             }
-            
-            @Override
-            public void onReceiveCommand(Object message) throws Exception {
-                if (message instanceof String) {
-                  // ...
-                } else {
-                    unhandled(message);
-                }
-            }
-            
-            private void recoveryCompleted() {
-                // perform init after recovery, before any other messages
-                // ...
-            }
-            
-            //#recovery-completed
+          }
+          //#recovery-completed
         }
     };
 
@@ -295,7 +289,8 @@ public class PersistenceDocTest {
 
             private void recover() {
                 //#snapshot-criteria
-                persistentActor.tell(Recover.create(SnapshotSelectionCriteria.create(457L, System.currentTimeMillis())), null);
+                persistentActor.tell(Recover.create(SnapshotSelectionCriteria.create(457L, 
+                    System.currentTimeMillis())), null);
                 //#snapshot-criteria
             }
         }
